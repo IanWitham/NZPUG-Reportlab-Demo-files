@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/svn/!svn/ver/127/trunk/pdfrw
+END
+pdfreader.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/127/trunk/pdfrw/pdfreader.py
+END
+pdftokens.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/123/trunk/pdfrw/pdftokens.py
+END
+toreportlab.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/84/trunk/pdfrw/toreportlab.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/73/trunk/pdfrw/__init__.py
+END
+buildxobj.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/115/trunk/pdfrw/buildxobj.py
+END
+pdfobjects.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/101/trunk/pdfrw/pdfobjects.py
+END
+pdfcompress.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/127/trunk/pdfrw/pdfcompress.py
+END
+pdfwriter.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/101/trunk/pdfrw/pdfwriter.py
+END
