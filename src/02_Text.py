@@ -1,3 +1,5 @@
+from os.path import join
+
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.units import mm, cm
 
@@ -7,6 +9,8 @@ text = (l.strip() for l in text_file if l.strip())
 
 c.setFontSize(10)
 leading = 14 # line spacing.
+
+c.saveState()
 
 # translate halfway across page
 c.translate(105*mm, 0) 
@@ -70,6 +74,17 @@ for word in text_words:
 
 # Finally render the text object
 c.drawText(textobject)
+
+# Return the canvas to its original state (origin in the bottom left
+# corner of the page).
+c.restoreState()
+
+# Draw an image file to the page
+c.drawImage(join("images", "234-The-Raven-Corvus-Corax-q75-445x500.jpg"),
+            x=10*mm, y=10*mm, width=70*mm, height=100*mm,
+            preserveAspectRatio=True,
+            anchor='c'
+            )
 
 text_file.close()
 c.showPage()

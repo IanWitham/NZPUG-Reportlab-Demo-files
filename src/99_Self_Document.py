@@ -29,15 +29,15 @@ class PdfFlowable(Flowable):
         
         # Read the pdf file data
         pdf_page = PdfReader(pdf_filename, decompress=False).pages[0]
-        print pdf_page["/MediaBox"]
-        x, y, width, height = pdf_page["/MediaBox"]
-        self.width = float(width)
-        self.height = float(height)
         
         # Convert each page to a pagexobject. This is a special kind of
         # self contained pdf object that can be reused in other pdf files.
         self.xobj = pagexobj(pdf_page)
     
+        x, y, width, height = self.xobj.BBox
+        self.width = float(width)
+        self.height = float(height)
+
     def wrap(self, *args):
         # returns the height of the object
         return (0, float(self.height)*0.75 + self.spaceBefore + self.spaceAfter)
@@ -132,12 +132,17 @@ def go():
     
     files = os.listdir('.')
     
+    files.sort(key=lambda x: x.endswith(".pdf"))
+    files.sort(key=lambda x: x.split('.')[0])
+    
+    print files
+    
     handlers = {"py":pythonCode,
                 "txt":plainText,
                 "pdf":pdfPage,
                 }
     
-    for file_name in sorted(files):
+    for file_name in files:
         if file_name in ("99_Self_Document.pdf", "pdfrw"):
             continue
         print file_name

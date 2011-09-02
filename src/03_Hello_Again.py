@@ -1,4 +1,6 @@
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from os.path import join
+
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER
@@ -55,10 +57,25 @@ story.append(Paragraph("""
     old man, and thus rid myself of the eye for ever.
     """, body_style))
 
+# A Spacer flowable is fairly obvious. It is used to ensure that an empty space
+# of a given size is left in the frame.
 story.append(Spacer(1, 15*mm))
 
-story.append(Paragraph("&#9829;", title_style))
+# create an Image flowable. You will need to find a way to calculate the desired
+# height and width, as the Image flowable is unable to preserve the aspect ratio
+# by itself.
+# Here is one way to do that when we know the width that we desire, but not yet
+# the height.
+orig_width, orig_height = 450, 500
+desired_width = 40 * mm
+scale_factor = desired_width / orig_width
+calculated_height = scale_factor * orig_height
+
+story.append(Image(join("images", "025-detail-flaming-heart-q75-450x500.jpg"),
+                   width=desired_width, height=calculated_height)
+             )
 
 
 doc.build(story)
 
+print "done"
