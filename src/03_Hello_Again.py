@@ -1,3 +1,24 @@
+"""High level document layout with PLATYPUS.
+
+The high-level way to create PDFs with Reportlab is to use the PLATYPUS page
+layout engine.
+
+To use this PLATYPUS engine, one creates "flowable" objects, which then "flow"
+throughout the pages of the PDF document in much the same way as text and images
+can flow through the pages of a document in a word processor. Some of the
+commonly used flowable classes which are included with PLATYPUS are Document,
+Spacer, Table and Image. It is also possible to create your own flowable types.
+
+PLATYPUS also requires a document template on which to operate, which is in turn
+made up of one or more page templates. Fortunately it is not necessary to code
+your own templates to get started with PLATYPUS, because there is a very
+versatile document template available by default called SimpleDocTemplate. SimpleDocTemplate can infer
+its own page templates from the arguments supplied to its constructor.
+
+This file demonstrates the use of SimpleDocTemplate, and three built in flowable
+types; Paragraph, Spacer, and Image.
+"""
+
 from os.path import join
 
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
@@ -5,7 +26,8 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER
 
-# Create a couple of paragraph styles
+# Create a couple of paragraph styles. These affects the font and formatting of
+# the paragraph you apply them to.
 body_style = ParagraphStyle(name="BodyStyle",
                             fontName="Times-Roman",
                             fontSize=14,
@@ -22,6 +44,9 @@ title_style = ParagraphStyle(name="TitleStyle",
 Title = "Hello world"
 pageinfo = "platypus example"
 
+# To make a SimpleDocTemplate, just supply a file name for your PDF, and the
+# page margins. You can optionally supply non-flowing elements such as headers
+# and footers. I will introduce that feature in a later demonstration.
 doc = SimpleDocTemplate("03_Hello_Again.pdf",
                         leftMargin=40*mm,
                         rightMargin=40*mm,
@@ -35,6 +60,9 @@ story.append(Paragraph("The Tell-Tale Heart",
                        )
              )
 
+# A Spacer flowable is fairly obvious. It is used to ensure that an empty space
+# of a given size is left in the frame. This spacer leaves a 25mm gap before
+# this next paragraph.
 story.append(Spacer(1, 25*mm))
 
 story.append(Paragraph("""
@@ -57,24 +85,24 @@ story.append(Paragraph("""
     old man, and thus rid myself of the eye for ever.
     """, body_style))
 
-# A Spacer flowable is fairly obvious. It is used to ensure that an empty space
-# of a given size is left in the frame.
 story.append(Spacer(1, 15*mm))
 
-# create an Image flowable. You will need to find a way to calculate the desired
-# height and width, as the Image flowable is unable to preserve the aspect ratio
-# by itself.
-# Here is one way to do that when we know the width that we desire, but not yet
-# the height.
+# Create an Image flowable. By default Reportlab will place images at 72dpi.
+# That is, one pixel is equal to one postscript point, and there are 72
+# postscript points to an inch. 72dpi is only suitable for on-screen display, so
+# if you want your images to look good in printed form this is probably not what
+# you want. You will need to determine a way to calculate the actual height and
+# width that you need. For this example we will shrink the image down so that it
+# prints at 300dpi (a good printer-friendly resolution). The scale factor
+# required to achieve this is 72/300.
 orig_width, orig_height = 450, 500
-desired_width = 40 * mm
-scale_factor = desired_width / orig_width
-calculated_height = scale_factor * orig_height
+scale_factor = 72 / 300.
+new_width = orig_width * scale_factor
+new_height = orig_height * scale_factor
 
 story.append(Image(join("images", "025-detail-flaming-heart-q75-450x500.jpg"),
-                   width=desired_width, height=calculated_height)
+                   width=new_width, height=new_height)
              )
-
 
 doc.build(story)
 
