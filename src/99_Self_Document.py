@@ -79,14 +79,14 @@ def myFirstPage(canvas, doc):
     canvas.setFont('Times-Bold',16)
     canvas.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT-108, Title)
     canvas.setFont('Times-Roman',9)
-    canvas.drawString(inch, 0.75 * inch, "First Page / %s" % pageinfo)
+    canvas.drawString(inch, 0.5 * inch, "First Page / %s" % pageinfo)
     canvas.restoreState()
 
 def myLaterPages(canvas, doc):
     # draws the static elements of all subsequent pages
     canvas.saveState()
     canvas.setFont('Times-Roman',9)
-    canvas.drawString(inch, 0.75 * inch, "Page %d %s" % (doc.page, pageinfo))
+    canvas.drawString(inch, 0.5 * inch, "Page %d %s" % (doc.page, pageinfo))
     canvas.restoreState()
 
 base_pre_style = PS('pre',
@@ -108,24 +108,37 @@ plain_style = PS('plaintext',
                  backColor=colors.lightgreen,
                  )
 
-title_style = PS('titletext',
-                 fontName="Helvetica-Bold",
-                 fontSize=14,
-                 leading=16,
-                 spaceBefore=24,
-                 )
+title_style = styles["Heading1"]
 
 def pythonCode(text):
     text = open(text).readlines()
     # A rather naive way to extract to first docstring. Oh well.
     try:
-        description = text[:text.index('"""\n')]
+        description = ''.join(text[:text.index('"""\n')])[3:]
         code = text[text.index('"""\n')+1:]
     except ValueError:
         description = None
         code = text
     
-    return PythonPreformatted(''.join(code), code_style)
+    returnVal = []
+    
+    # First handle the description text (if any)
+    if description:
+        returnVal.extend(storify(description))
+    
+    # Then handle the Python source code
+    returnVal.append(PythonPreformatted(''.join(code), code_style))
+    
+    return returnVal
+
+def storify(text):
+        """This function converts a string of text into a list of paragraphs. Each
+        paragraph should be separated by 2 newlines. The first paragraph will be
+        treated as a heading."""
+        textBlocks = text.split("\n\n")
+        storyList = [Paragraph(textBlocks[0], styles["Heading2"])]
+        storyList += [Paragraph(t, styles["BodyText"]) for t in textBlocks[1:]]
+        return storyList
     
 def plainText(text):
     text = open(text).read()
@@ -135,14 +148,15 @@ def plainText(text):
         text_lines = text_lines[:30]
         text_lines.append("-"*37 + " SNIP " + "-"*37)
         text = '\n'.join(text_lines)
-    return XPreformatted(text, plain_style)
+    return [XPreformatted(text, plain_style)]
 
 def pdfPage(file_data):
     # handler for pdf files
-    return PdfFlowable(file_data)
+    return [PdfFlowable(file_data)]
 
 def go():
-    doc = SimpleDocTemplate("99_Self_Document.pdf")
+    doc = SimpleDocTemplate("99_Self_Document.pdf",
+                            bottomMargin=20*mm)
     Story = [PageBreak()]
     
     files = sorted(os.listdir('.'))
@@ -161,9 +175,12 @@ def go():
             if file_extension == "pdf":
                 Story.append(PageBreak())
             heading = Paragraph(file_name, title_style)
+            # get a list of new flowables
             file_contents = handlers[file_extension](file_name)
-            Story.extend([heading, file_contents])
-        
+            # add the new flowables to the story
+            Story.extend([heading] + file_contents)
+    
+    # invoke the PLATYPUS engine.
     doc.build(Story, onFirstPage=myFirstPage, onLaterPages=myLaterPages)
 
 go()
