@@ -42,9 +42,6 @@ title_style = ParagraphStyle(name="TitleStyle",
                              alignment=TA_CENTER,
                              )
 
-Title = "Hello world"
-pageinfo = "platypus example"
-
 # To make a SimpleDocTemplate, just supply a file name for your PDF, and the
 # page margins. You can optionally supply non-flowing elements such as headers
 # and footers. I will introduce that feature in a later demonstration.
