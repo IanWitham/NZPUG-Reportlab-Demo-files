@@ -7,3 +7,6 @@ up a set of "self-documenting" notes for a talk which will be / was
 presented to the Wellington meeting of the New Zealand Python User Group
 on 8 August 2011.
 
+Dependancies
+  - Reportlab Toolkit 2.5
+  - Python 2.6
