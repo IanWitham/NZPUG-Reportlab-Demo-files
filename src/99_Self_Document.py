@@ -9,6 +9,7 @@ interests of nice presentation.
 The PDFRW library is used to render PDFs, and a custom flowable is employed to
 add the PDF to the story stream.
 """
+import itertools
 
 from reportlab.platypus.xpreformatted import PythonPreformatted, XPreformatted
 from reportlab.platypus import SimpleDocTemplate, Spacer
@@ -115,8 +116,16 @@ title_style = PS('titletext',
                  )
 
 def pythonCode(text):
-    text = open(text).read()
-    return PythonPreformatted(text, code_style)
+    text = open(text).readlines()
+    # A rather naive way to extract to first docstring. Oh well.
+    try:
+        description = text[:text.index('"""\n')]
+        code = text[text.index('"""\n')+1:]
+    except ValueError:
+        description = None
+        code = text
+    
+    return PythonPreformatted(''.join(code), code_style)
     
 def plainText(text):
     text = open(text).read()
