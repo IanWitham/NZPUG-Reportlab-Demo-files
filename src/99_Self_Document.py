@@ -1,3 +1,15 @@
+"""Automatically document a Reportlab presentation!
+
+This is a special example which ties together several concepts to create
+presentation notes. It knows how to loop over the files in this folder and can
+render both Python source code and PDF files. Additionally the first doc string
+in each Python source code is converted to a series of Paragraph objects in the
+interests of nice presentation.
+
+The PDFRW library is used to render PDFs, and a custom flowable is employed to
+add the PDF to the story stream.
+"""
+
 from reportlab.platypus.xpreformatted import PythonPreformatted, XPreformatted
 from reportlab.platypus import SimpleDocTemplate, Spacer
 from reportlab.platypus import Paragraph, KeepInFrame
