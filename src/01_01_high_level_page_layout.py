@@ -1,18 +1,19 @@
 """High level document layout with PLATYPUS.
 
-The high-level way to create PDFsIt is important to note that  with Reportlab is
-to use the PLATYPUS page layout engine.
+The high-level way to create PDFs with Reportlab is to use the PLATYPUS page
+layout engine.
 
-To use this PLATYPUS engine, one creates "flowable" objects, which then "flow"
-throughout the pages of the PDF document in much the same way as text and images
-can flow through the pages of a document in a word processor. Some of the
-commonly used flowable classes which are included with PLATYPUS are Document,
-Spacer, Table and Image. It is also possible to create your own flowable types.
+To use this PLATYPUS engine, one creates a list of "flowable" objects, which
+then "flow" throughout the pages of the PDF document in much the same way as
+text and images can flow through the pages of a document in a word processor.
+Some of the commonly used flowable classes which are included with PLATYPUS are
+Paragraph, Spacer, Table and Image. It is also possible to create your own
+flowable types.
 
 PLATYPUS also requires a document template on which to operate, which is in turn
 made up of one or more page templates. Fortunately it is not necessary to code
-your own templates to get started with PLATYPUS, because there is a very
-versatile document template available by default called SimpleDocTemplate.
+your own templates in order to get started with PLATYPUS, because there is a
+very versatile document template available by default called SimpleDocTemplate.
 SimpleDocTemplate can infer its own page templates from the arguments supplied
 to its constructor.
 
@@ -22,7 +23,7 @@ types; Paragraph, Spacer, and Image.
 from os.path import join
 
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER
 
