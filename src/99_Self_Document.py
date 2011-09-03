@@ -9,11 +9,9 @@ interests of nice presentation.
 The PDFRW library is used to render PDFs, and a custom flowable is employed to
 add the PDF to the story stream.
 """
-import itertools
-
 from reportlab.platypus.xpreformatted import PythonPreformatted, XPreformatted
-from reportlab.platypus import SimpleDocTemplate, Spacer
-from reportlab.platypus import Paragraph, KeepInFrame
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import Paragraph
 from reportlab.platypus import Flowable, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import mm, inch
@@ -22,7 +20,7 @@ from reportlab.rl_config import defaultPageSize
 from reportlab.lib.styles import ParagraphStyle as PS
 
 from pdfrw import PdfReader
-from pdfrw.buildxobj import pagexobj, ViewInfo
+from pdfrw.buildxobj import pagexobj
 from pdfrw.toreportlab import makerl
 
 import os
