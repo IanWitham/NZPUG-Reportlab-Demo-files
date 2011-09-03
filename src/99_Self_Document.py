@@ -163,6 +163,7 @@ def go():
     
     handlers = {"py":pythonCode,
                 "txt":plainText,
+                "csv":plainText,
                 "pdf":pdfPage,
                 }
     
