@@ -21,8 +21,8 @@ from os.path import join
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.units import mm, cm
 
-c = Canvas("02_Text.pdf", pagesize=(210*mm, 297*mm))
-text_file = open("02_The_Raven.txt")
+c = Canvas("04_03_low_level_pdf_operations_II.pdf", pagesize=(210*mm, 297*mm))
+text_file = open("04_02_The_Raven.txt")
 text = (l.strip() for l in text_file if l.strip())
 
 c.setFontSize(10)

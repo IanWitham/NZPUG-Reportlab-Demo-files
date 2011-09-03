@@ -151,12 +151,7 @@ def go():
     doc = SimpleDocTemplate("99_Self_Document.pdf")
     Story = []
     
-    files = os.listdir('.')
-    
-    files.sort(key=lambda x: x.endswith(".pdf"))
-    files.sort(key=lambda x: x.split('.')[0])
-    
-    print files
+    files = sorted(os.listdir('.'))
     
     handlers = {"py":pythonCode,
                 "txt":plainText,

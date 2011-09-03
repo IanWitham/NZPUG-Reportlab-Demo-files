@@ -19,7 +19,6 @@ to its constructor.
 This file demonstrates the use of SimpleDocTemplate, and three built in flowable
 types; Paragraph, Spacer, and Image.
 """
-
 from os.path import join
 
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
@@ -48,7 +47,7 @@ pageinfo = "platypus example"
 # To make a SimpleDocTemplate, just supply a file name for your PDF, and the
 # page margins. You can optionally supply non-flowing elements such as headers
 # and footers. I will introduce that feature in a later demonstration.
-doc = SimpleDocTemplate("03_Hello_Again.pdf",
+doc = SimpleDocTemplate("01_02_high_level_page_layout.pdf",
                         leftMargin=40*mm,
                         rightMargin=40*mm,
                         topMargin=40*mm,

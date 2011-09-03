@@ -13,7 +13,7 @@ from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.units import mm
 
 # create a Canvas object. This is your PDF.
-c = Canvas("01_Hello_World.pdf", pagesize=(210*mm, 297*mm))
+c = Canvas("03_02_low_level_pdf_operations.pdf", pagesize=(210*mm, 297*mm))
 
 # The canvas is very stateful. Here we adjust the font size. This will affect
 # all further text until a new font size is set. (If font size is not set it
