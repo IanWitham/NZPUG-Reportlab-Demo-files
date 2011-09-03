@@ -1,3 +1,21 @@
+"""Low level PDF operations with pdfgen -- PART II
+
+This demonstration introduces the concept of the state stack.
+
+In a new canvas object, all operations are performed relative to the origin (0,
+0) in the lower left corner of the page. Canvas transformations such as scale,
+translate, rotate and skew, effect the origin and all drawing operations
+performed after the transformation. These transformations are also cumulative.
+
+It is very useful to save the canvas in its current state with
+canvas.saveState(). You can "undo" any subsequent transformations by calling
+canvas.restoreState(). Canvas.saveState() can "push" multiple states on to the
+state stack.
+
+There are also a few other canvas states which get saved to the state stack by
+this operation, such as fill colour, stroke colour, and font face.
+"""
+
 from os.path import join
 
 from reportlab.pdfgen.canvas import Canvas
