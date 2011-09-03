@@ -30,8 +30,8 @@ import os
 PAGE_HEIGHT=defaultPageSize[1]; PAGE_WIDTH=defaultPageSize[0]
 styles = getSampleStyleSheet()
 
-Title = "Hello world"
-pageinfo = "platypus example"
+Title = "Introduction to Reportlab"
+pageinfo = "Introduction to Reportlab"
 
 class PdfFlowable(Flowable):
     """A custom flowable which draws the first page of a pdf file
@@ -141,15 +141,9 @@ def pdfPage(file_data):
     # handler for pdf files
     return PdfFlowable(file_data)
 
-def aCircle(self):
-    canvas = self.canv
-    canvas.saveState()
-    canvas.rect(0, 0, 100*mm, 100*mm)
-    canvas.restoreState()
-
 def go():
     doc = SimpleDocTemplate("99_Self_Document.pdf")
-    Story = []
+    Story = [PageBreak()]
     
     files = sorted(os.listdir('.'))
     
