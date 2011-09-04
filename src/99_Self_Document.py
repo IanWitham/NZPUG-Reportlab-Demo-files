@@ -58,16 +58,20 @@ class PdfFlowable(Flowable):
         c.saveState()
         c.translate(0, self.spaceBefore)
         c.scale(0.75, 0.75)
+        # draw a grey shadow under the page
         c.saveState()
         c.translate(10, -10)
         c.setFillColorCMYK(0, 0, 0, 0.2)
         c.rect(0, 0, self.width, self.height, stroke=0, fill=1)
         c.restoreState()
+        # draw a white background for the pdf to sit on
         c.saveState()
         c.setFillColorCMYK(0, 0, 0, 0)
         c.rect(0, 0, self.width, self.height, stroke=0, fill=1)
         c.restoreState()
+        # draw the pdf page
         c.doForm(makerl(c, self.xobj))
+        # draw a black outline around the pdf page
         c.rect(0, 0, self.width, self.height, stroke=1, fill=0)
         c.restoreState()
 
