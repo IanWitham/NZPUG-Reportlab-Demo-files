@@ -56,9 +56,9 @@ table_data = list(datafile)
 
 # Prepare the TableStyle.
 myTableStyle = TableStyle([('LINEABOVE', (0,0), (-1,0), 2, colors.green),
-                           ('LINEABOVE', (0,2), (-1,-1), 0.25, colors.black),
+                           ('LINEBELOW', (0,0), (-1,0), 2, colors.green),
+                           ('LINEBELOW', (0,1), (-1,-1), 0.25, colors.black),
                            ('LINEBELOW', (0,-1), (-1,-1), 2, colors.green),
-                           ('LINEABOVE', (0,1), (-1,1), 2, colors.green),
                            ('ALIGN', (1,1), (-1,-1), 'RIGHT')]
                           )
 
