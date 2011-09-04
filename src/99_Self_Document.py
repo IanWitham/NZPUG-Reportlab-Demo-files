@@ -129,7 +129,8 @@ def pythonCode(text):
         returnVal.extend(storify(description))
     
     # Then handle the Python source code
-    returnVal.append(PythonPreformatted(''.join(code), code_style))
+    if ''.join(code).strip():
+        returnVal.append(PythonPreformatted(''.join(code), code_style))
     
     return returnVal
 

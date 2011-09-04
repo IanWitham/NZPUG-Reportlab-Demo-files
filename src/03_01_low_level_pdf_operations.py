@@ -25,8 +25,8 @@ c.setFontSize(60)
 # reportlab.lib.units. This converts the measurement to points.
 width, height = 210*mm, 297*mm
 
-# When placing objects on the page keep in mind that by default, measurements are taken
-# from the lower left-hand corner of the page.
+# When placing objects on the page keep in mind that by default, measurements
+# are taken from the lower left-hand corner of the page.
 c.drawCentredString(width / 2, height / 2, "Hello World")
 
 c.showPage()  # Finish page 1
