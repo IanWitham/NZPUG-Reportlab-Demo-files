@@ -8,7 +8,6 @@ object. The canvas object <i>is</i> your PDF.
 All drawing operations are performed by calling various methods of the canvas
 object.
 """
-
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.units import mm
 
