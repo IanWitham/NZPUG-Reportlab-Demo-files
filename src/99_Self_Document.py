@@ -9,9 +9,12 @@ interests of nice presentation.
 The PDFRW library is used to render PDFs, and a custom flowable is employed to
 add the PDF to the story stream.
 """
+import os
+from os.path import join
+
 from reportlab.platypus.xpreformatted import PythonPreformatted, XPreformatted
 from reportlab.platypus import SimpleDocTemplate
-from reportlab.platypus import Paragraph
+from reportlab.platypus import Paragraph, Image, Spacer
 from reportlab.platypus import Flowable, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import mm, inch
@@ -23,12 +26,9 @@ from pdfrw import PdfReader
 from pdfrw.buildxobj import pagexobj
 from pdfrw.toreportlab import makerl
 
-import os
-
 PAGE_HEIGHT=defaultPageSize[1]; PAGE_WIDTH=defaultPageSize[0]
 styles = getSampleStyleSheet()
 
-Title = "Introduction to Reportlab"
 pageinfo = "Introduction to Reportlab"
 
 class PdfFlowable(Flowable):
@@ -78,8 +78,6 @@ class PdfFlowable(Flowable):
 def myFirstPage(canvas, doc):
     # draws the static elements of the first page
     canvas.saveState()
-    canvas.setFont('Times-Bold',16)
-    canvas.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT-108, Title)
     canvas.setFont('Times-Roman',9)
     canvas.drawString(inch, 0.5 * inch, "First Page / %s" % pageinfo)
     canvas.restoreState()
@@ -160,7 +158,21 @@ def pdfPage(file_data):
 def go():
     doc = SimpleDocTemplate("99_Self_Document.pdf",
                             bottomMargin=20*mm)
-    Story = [PageBreak()]
+    Story = []
+    
+    Story.append(Paragraph("Introduction to Reportlab", styles["Heading1"]))
+    Story.append(Paragraph("Ian Witham, September 2011", styles["Heading2"]))
+    Story.append(Paragraph("""Source available from
+    <a href="http://github.com/IanWitham/NZPUG-Reportlab-Demo-files/">
+    http://github.com/IanWitham/NZPUG-Reportlab-Demo-files/</a>""",
+    styles["Heading3"]))
+    Story.append(Spacer(1, 30*mm))
+    width = 1039 * (72./200)
+    height = 1167 * (72./200)
+    Story.append(Image(join("images", "0493-Printing-Press-q75-1039x1167.jpg"),
+                       width=width, height=height, ))
+    
+    Story.append(PageBreak())
     
     files = sorted(os.listdir('.'))
     
